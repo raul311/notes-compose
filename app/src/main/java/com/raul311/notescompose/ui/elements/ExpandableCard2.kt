@@ -1,15 +1,11 @@
 package com.raul311.notescompose.ui.elements
 
 import androidx.compose.animation.*
-import androidx.compose.animation.core.LinearOutSlowInEasing
-import androidx.compose.animation.core.keyframes
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.raul311.notescompose.models.Note
 
@@ -20,13 +16,10 @@ fun ExpandableCard2(
     note : Note,
     onNoteClicked : OnNoteClicked
 ) {
-    var expanded by remember { mutableStateOf(false) }
-    if (expanded) {
-//        FullScreenNote(note)
-    }
     Card(
         modifier = Modifier
-            .fillMaxSize()
+            .width(150.dp)
+            .height(150.dp)
             .padding(15.dp)
             .clickable {
                 onNoteClicked(note)
@@ -47,28 +40,6 @@ fun ExpandableCard2(
                 note.data
             )
         }
-        AnimatedContent(
-            targetState = expanded,
-            transitionSpec = {
-                fadeIn(animationSpec = tween(10000, 10000, LinearOutSlowInEasing)) with
-                        fadeOut(animationSpec = tween(1000)) using
-                        SizeTransform() { initialSize, targetSize ->
-                            if (targetState) {
-                                keyframes {
-                                    // Expand horizontally first.
-                                    IntSize(targetSize.width, initialSize.height) at 1000
-                                    durationMillis = 10000
-                                }
-                            } else {
-                                keyframes {
-                                    // Shrink vertically first.
-                                    IntSize(initialSize.width, targetSize.height) at 1000
-                                    durationMillis = 10000
-                                }
-                            }
-                        }
-            }
-        ) {}
     }
 }
 
