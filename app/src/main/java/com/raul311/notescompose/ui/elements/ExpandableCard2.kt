@@ -9,34 +9,28 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import com.raul311.notescompose.models.Note
 
 @ExperimentalMaterialApi
 @ExperimentalAnimationApi
 @Composable
 fun ExpandableCard2(
-    title: String,
-    description: String,
+    note : Note,
+    onNoteClicked : OnNoteClicked
 ) {
     var expanded by remember { mutableStateOf(false) }
-    val modifier = if (expanded) {
-        Modifier
+    if (expanded) {
+//        FullScreenNote(note)
+    }
+    Card(
+        modifier = Modifier
             .fillMaxSize()
             .padding(15.dp)
             .clickable {
-                expanded = !expanded
-            }
-    } else {
-        Modifier
-            .width(150.dp)
-            .height(300.dp)
-            .padding(15.dp)
-            .clickable { expanded = !expanded }
-    }
-    Card(
-        modifier,
+                onNoteClicked(note)
+            },
         elevation = 10.dp,
 
         ) {
@@ -45,12 +39,12 @@ fun ExpandableCard2(
                 .padding(5.dp)
         ) {
             Text(
-                title,
+                note.title,
                 modifier = Modifier
                     .padding(bottom = 30.dp)
             )
             Text(
-                description
+                note.data
             )
         }
         AnimatedContent(
@@ -82,11 +76,14 @@ fun ExpandableCard2(
 @ExperimentalMaterialApi
 @ExperimentalAnimationApi
 @Composable
-fun ExpandableCardPreview2(title : String, description: String) {
+fun ExpandableCardPreview2(
+    note : Note,
+    onNoteClicked : OnNoteClicked
+) {
 
     ExpandableCard2(
-        title = title,
-        description = description
+        note,
+        onNoteClicked
     )
 
 //    ExpandableCard2(
@@ -108,3 +105,9 @@ fun ExpandableCardPreview2(title : String, description: String) {
 //    )
 }
 
+@ExperimentalMaterialApi
+@ExperimentalAnimationApi
+@Composable
+fun OpenFullScreen(note : Note) {
+    FullScreenNote(note)
+}
