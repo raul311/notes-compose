@@ -32,7 +32,7 @@ fun ExpandableCard2(
                 .padding(5.dp)
         ) {
             Text(
-                note.title,
+                note.title!!,
                 modifier = Modifier
                     .padding(bottom = 30.dp)
             )
@@ -80,5 +80,5 @@ fun ExpandableCardPreview2(
 @ExperimentalAnimationApi
 @Composable
 fun OpenFullScreen(note : Note) {
-    FullScreenNote(note)
+//    FullScreenNote(note)
 }
