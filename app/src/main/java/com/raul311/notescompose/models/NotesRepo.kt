@@ -8,7 +8,7 @@ class NotesRepo(private val noteDao: NoteDao) {
 
     fun getNote(id: Long): LiveData<Note> = noteDao.getNote(id)
 
-    fun insertNode(note: Note) = noteDao.insertNode(note)
+    suspend fun insertNode(note: Note) = noteDao.insertNode(note)
 
     fun updateNote(note: Note) = noteDao.updateNote(note)
 

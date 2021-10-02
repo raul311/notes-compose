@@ -36,6 +36,13 @@ class MainActivity : ComponentActivity() {
             NotesComposeTheme {
                 val notesViewModel: NotesViewModel by viewModels()
                 HomeScreen(notesViewModel)
+//                model.getAllNotes().observe(this, { notes ->
+//                    HomeContent(
+//                        notes,
+//                        onNoteClicked = { fullScreenNote(context = this, note = it) }
+//                    )
+//                })
+
             }
         }
     }

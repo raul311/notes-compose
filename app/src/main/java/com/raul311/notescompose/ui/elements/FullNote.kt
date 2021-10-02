@@ -20,29 +20,39 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
 typealias OnNoteClicked = (Note) -> Unit
+typealias OnSaveNoteClicked = (Note) -> Unit
+
+//@ExperimentalAnimationApi
+//@ExperimentalMaterialApi
+//@Composable
+//fun FullScreenNote(
+//    title: String,
+//    data: String,
+//    version: Int,
+//    onSaveNoteClicked : OnSaveNoteClicked) {
+//    OpenNote(title, data, version, onSaveNoteClicked)
+//}
 
 @ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @Composable
-fun FullScreenNote(title: String, data: String) {
-    OpenNote(title, data)
-}
-
-@ExperimentalAnimationApi
-@ExperimentalMaterialApi
-@Composable
-fun FullScreenNote() {
-    OpenNote("", "")
+fun FullScreenNote(
+    note: Note,
+    onSaveNoteClicked : OnSaveNoteClicked
+) {
+    OpenNote(note, onSaveNoteClicked)
 }
 
 @ExperimentalMaterialApi
 @ExperimentalAnimationApi
 @Composable
 private fun OpenNote (
-    title: String,
-    data: String
+    note: Note,
+    onSaveNoteClicked : OnSaveNoteClicked
 ) {
     val context = LocalContext.current
+    var title by remember { mutableStateOf(note.title) }
+    var data by remember { mutableStateOf(note.data) }
     Scaffold(
         content = {
             Surface(
@@ -56,8 +66,7 @@ private fun OpenNote (
                         modifier = Modifier
                             .padding(5.dp)
                     ) {
-                        var title by remember { mutableStateOf(title) }
-                        var data by remember { mutableStateOf(data) }
+
                         OutlinedTextField(
                             modifier = Modifier
                                 .fillMaxWidth(),
@@ -87,7 +96,11 @@ private fun OpenNote (
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { /* TODO */ },
+                onClick = {
+                    val n = Note(title, data, note.version, note.id)
+                    println("click save note $n")
+                    onSaveNoteClicked(n)
+                          },
                 backgroundColor = Color.Red,
                 contentColor = Color.White,
             ) {

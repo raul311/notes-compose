@@ -7,7 +7,7 @@ import androidx.room.*
 interface NoteDao {
 
     @Insert
-    fun insertNode(note: Note)
+    suspend fun insertNode(note: Note)
 
     @Update
     fun updateNote(note: Note)

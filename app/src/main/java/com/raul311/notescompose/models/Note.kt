@@ -6,10 +6,10 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Note(
-    @PrimaryKey(autoGenerate = true) val id: Long,
     @ColumnInfo(name = "title") val title: String?,
     @ColumnInfo(name = "body") val data: String = "",
-    @ColumnInfo(name = "version") val version: Int
+    @ColumnInfo(name = "version") val version: Int,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
 )
 
 //val notes = listOf(

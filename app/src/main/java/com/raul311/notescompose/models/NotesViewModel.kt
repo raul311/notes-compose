@@ -3,8 +3,10 @@ package com.raul311.notescompose.models
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 
- class NotesViewModel(application: Application) : AndroidViewModel(application) {
+class NotesViewModel(application: Application) : AndroidViewModel(application) {
 
     private val notesRepo: NotesRepo
 
@@ -22,7 +24,9 @@ import androidx.lifecycle.LiveData
     }
 
     fun insertNote(note: Note) {
-        notesRepo.insertNode(note)
+        viewModelScope.launch {
+            notesRepo.insertNode(note)
+        }
     }
 
     fun updateNote(note: Note) {
