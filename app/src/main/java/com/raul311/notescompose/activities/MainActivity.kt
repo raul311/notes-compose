@@ -25,8 +25,6 @@ import androidx.compose.ui.platform.LocalContext
 
 class MainActivity : ComponentActivity() {
 
-//    val notesViewModel by viewModels<NotesViewModel>()
-
     @ExperimentalFoundationApi
     @ExperimentalMaterialApi
     @ExperimentalAnimationApi
@@ -36,17 +34,9 @@ class MainActivity : ComponentActivity() {
             NotesComposeTheme {
                 val notesViewModel: NotesViewModel by viewModels()
                 HomeScreen(notesViewModel)
-//                model.getAllNotes().observe(this, { notes ->
-//                    HomeContent(
-//                        notes,
-//                        onNoteClicked = { fullScreenNote(context = this, note = it) }
-//                    )
-//                })
-
             }
         }
     }
-
 }
 
 @ExperimentalAnimationApi
@@ -58,7 +48,7 @@ fun HomeScreen(notesViewModel: NotesViewModel) {
     val context = LocalContext.current
     val notes = notesViewModel.getAllNotes().observeAsState()
     notes.value?.let { notes ->
-        System.out.println("notes size = ${notes.size}")
+        println("notes size = ${notes.size}")
         HomeContent(
             notes,
             onNoteClicked = { fullScreenNote(context = context, note = it) }
