@@ -26,7 +26,9 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
     fun insertNote(note: Note) {
         println("note id = $note")
         if (note.id == 0L) {
-            viewModelScope.launch { notesRepo.insertNode(note) }
+            viewModelScope.launch {
+                notesRepo.insertNode(note)
+            }
         } else {
             updateNote(note = note)
         }
@@ -34,11 +36,15 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
 
     fun updateNote(note: Note) {
         println("updating note id = $note")
-        viewModelScope.launch { notesRepo.updateNote(note) }
+        viewModelScope.launch {
+            notesRepo.updateNote(note)
+        }
     }
 
-    suspend fun deleteNote(note: Note) {
-        notesRepo.deleteNote(note)
+    fun deleteNote(note: Note) {
+        viewModelScope.launch {
+            notesRepo.deleteNote(note)
+        }
     }
 
 }

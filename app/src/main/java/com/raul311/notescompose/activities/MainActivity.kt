@@ -107,7 +107,3 @@ fun fullScreenNote(context: Context, note : Note) {
 fun fullScreenNewNote(context: Context) {
     context.startActivity(Intent(context, FullScreenActivity::class.java))
 }
-
-
-
-
