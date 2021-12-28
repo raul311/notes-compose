@@ -8,23 +8,17 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.sharp.Close
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.ExperimentalComposeUiApi
 import com.raul311.notescompose.models.Note
 import com.raul311.notescompose.models.NotesViewModel
 import com.raul311.notescompose.ui.theme.NotesComposeTheme
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -34,6 +28,7 @@ class FullScreenActivity : ComponentActivity() {
 
     private val notesViewModel: NotesViewModel by viewModels()
 
+    @ExperimentalComposeUiApi
     @ExperimentalFoundationApi
     @ExperimentalMaterialApi
     @ExperimentalAnimationApi
@@ -58,7 +53,7 @@ class FullScreenActivity : ComponentActivity() {
                     }
                 } else {
                     fullScreenNote(
-                        Note("", "", 1),
+                        Note("","", 1),
                         notesViewModel = notesViewModel
                     )
                 }
@@ -67,6 +62,7 @@ class FullScreenActivity : ComponentActivity() {
     }
 }
 
+@ExperimentalComposeUiApi
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi
 @ExperimentalAnimationApi
@@ -76,9 +72,10 @@ private fun fullScreenNote(
     notesViewModel: NotesViewModel
 ) {
     var title by remember { mutableStateOf(note.title) }
-    var data by remember { mutableStateOf(note.data) }
-    var expanded by remember { mutableStateOf(false) }
+    var isSettingsMenuExpanded by remember { mutableStateOf(false) }
+    var body by remember { mutableStateOf(note.body)}
     val activity = (LocalContext.current as? Activity)
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -86,11 +83,16 @@ private fun fullScreenNote(
             ) {
                 ConstraintLayout(
                     modifier = Modifier.fillMaxWidth()
-                ){
-                    val (back, settings) = createRefs()
+                ) {
+                    val (back) = createRefs()
                     IconButton(
                         onClick = {
-                            saveNote(title!!, data, note.version, note.id, notesViewModel)
+                            saveNote(
+                                title!!,
+                                body,
+                                note.version,
+                                note.id,
+                                notesViewModel)
                             activity?.finish()
                         },
                         modifier = Modifier
@@ -111,7 +113,6 @@ private fun fullScreenNote(
             ) {
                 Card(
                     elevation = 10.dp,
-
                     ) {
                     Column(
                         modifier = Modifier
@@ -133,14 +134,11 @@ private fun fullScreenNote(
                         OutlinedTextField(
                             modifier = Modifier
                                 .fillMaxSize(),
-                            value = data,
-                            onValueChange = {
-                                data = it
-                            },
+                            value = body,
+                            onValueChange = { body = it },
                             label = {
                                 Text("Note")
                             }
-
                         )
                     }
                 }
@@ -157,6 +155,7 @@ private fun fullScreenNote(
                             label = { Text(text = "Checkboxes") },
                             selected = false,
                             onClick = {
+                                println("whole text = $body")
                             },
                         )
                         BottomNavigationItem(
@@ -166,7 +165,12 @@ private fun fullScreenNote(
                             label = { Text(text = "Save") },
                             selected = false,
                             onClick = {
-                                saveNote(title!!, data, note.version, note.id, notesViewModel)
+                                saveNote(
+                                    title!!,
+                                    body,
+                                    note.version,
+                                    note.id,
+                                    notesViewModel)
                             },
                         )
                         BottomNavigationItem(
@@ -176,12 +180,12 @@ private fun fullScreenNote(
                             label = { Text(text = "Settings") },
                             selected = false,
                             onClick = {
-                                expanded = !expanded
+                                isSettingsMenuExpanded = !isSettingsMenuExpanded
                             },
                         )
                         DropdownMenu(
-                            expanded = expanded,
-                            onDismissRequest = { expanded = false },
+                            expanded = isSettingsMenuExpanded,
+                            onDismissRequest = { isSettingsMenuExpanded = false },
                             modifier = Modifier
                                 .fillMaxWidth()
                         ) {
@@ -194,8 +198,13 @@ private fun fullScreenNote(
                             }
                             DropdownMenuItem(
                                 onClick = {
-                                    saveNote(title!!, data, note.version, 0, notesViewModel)
-                                    expanded = !expanded
+                                    saveNote(
+                                        title!!,
+                                        body,
+                                        note.version,
+                                        0,
+                                        notesViewModel)
+                                    isSettingsMenuExpanded = !isSettingsMenuExpanded
                                 }) {
                                 Text(text = "Make a Copy")
                             }
@@ -216,8 +225,14 @@ private fun fullScreenNote(
     )
 }
 
-private fun saveNote(title: String, data: String, version: Int, id: Long, notesViewModel: NotesViewModel) {
-    val note = Note(title, data, version, id)
+private fun saveNote(
+    title: String,
+    body: String,
+    version: Int,
+    id: Long,
+    notesViewModel: NotesViewModel) {
+
+    val note = Note(title, body, version + 1, id)
     println("click save note $note")
     notesViewModel.insertNote(note)
 }

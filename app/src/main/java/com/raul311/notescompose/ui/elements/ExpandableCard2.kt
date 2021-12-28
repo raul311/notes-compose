@@ -37,48 +37,8 @@ fun ExpandableCard2(
                     .padding(bottom = 30.dp)
             )
             Text(
-                note.data
+                note.body
             )
         }
     }
-}
-
-
-@ExperimentalMaterialApi
-@ExperimentalAnimationApi
-@Composable
-fun ExpandableCardPreview2(
-    note : Note,
-    onNoteClicked : OnNoteClicked
-) {
-
-    ExpandableCard2(
-        note,
-        onNoteClicked
-    )
-
-//    ExpandableCard2(
-//        title = "Title to first note",
-//        description = "This is the body of the note section"
-//    )
-//
-//    ExpandableCard2(
-//        title = "My Title",
-//        description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
-//                "sed do eiusmod tempor incididunt ut labore et dolore magna " +
-//                "aliqua. Ut enim ad minim veniam, quis nostrud exercitation " +
-//                "ullamco laboris nisi ut aliquip ex ea commodo consequat."
-//    )
-//
-//    ExpandableCard2(
-//        title = "Title extra note",
-//        description = "This is the body of the note section"
-//    )
-}
-
-@ExperimentalMaterialApi
-@ExperimentalAnimationApi
-@Composable
-fun OpenFullScreen(note : Note) {
-//    FullScreenNote(note)
 }
