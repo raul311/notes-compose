@@ -16,8 +16,8 @@ import androidx.compose.material.icons.sharp.Close
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.ExperimentalComposeUiApi
-import com.raul311.notescompose.models.Note
-import com.raul311.notescompose.models.NotesViewModel
+import com.raul311.notescompose.models.notes.Note
+import com.raul311.notescompose.models.notes.NotesViewModel
 import com.raul311.notescompose.ui.theme.NotesComposeTheme
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -230,7 +230,8 @@ private fun saveNote(
     body: String,
     version: Int,
     id: Long,
-    notesViewModel: NotesViewModel) {
+    notesViewModel: NotesViewModel
+) {
 
     val note = Note(title, body, version + 1, id)
     println("click save note $note")

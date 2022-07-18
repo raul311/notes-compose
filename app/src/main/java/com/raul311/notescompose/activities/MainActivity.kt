@@ -15,9 +15,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import com.raul311.notescompose.models.Note
+import com.raul311.notescompose.models.notes.Note
 import com.raul311.notescompose.ui.theme.NotesComposeTheme
-import com.raul311.notescompose.models.NotesViewModel
+import com.raul311.notescompose.models.notes.NotesViewModel
 import com.raul311.notescompose.ui.elements.ExpandableCard2
 import com.raul311.notescompose.ui.elements.OnNoteClicked
 import androidx.compose.runtime.livedata.observeAsState

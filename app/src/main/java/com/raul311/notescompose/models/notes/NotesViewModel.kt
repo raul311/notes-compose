@@ -1,4 +1,4 @@
-package com.raul311.notescompose.models
+package com.raul311.notescompose.models.notes
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -30,7 +30,7 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
                 notesRepo.insertNode(note)
             }
         } else {
-            updateNote(note = note)
+            updateNote(note)
         }
     }
 

@@ -7,7 +7,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.raul311.notescompose.models.Note
+import com.raul311.notescompose.models.notes.Note
 
 @ExperimentalMaterialApi
 @ExperimentalAnimationApi
