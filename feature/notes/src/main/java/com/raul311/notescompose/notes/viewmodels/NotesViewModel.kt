@@ -4,18 +4,19 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.raul311.notescompose.core.data.notes.NotesRepo
+import com.raul311.notescompose.core.data.notes.NotesRepository
 import com.raul311.notescompose.core.datastore.notes.NoteDatabase
 import com.raul311.notescompose.core.models.notes.Note
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class NotesViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val notesRepo: NotesRepo
+    private val notesRepo: NotesRepository
 
     init {
         val noteDB = NoteDatabase.getDatabase(application).noteDao()
-        notesRepo = NotesRepo(noteDB)
+        notesRepo = NotesRepository(noteDB)
     }
 
     fun getAllNotes(): LiveData<List<Note>> {
@@ -29,7 +30,7 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
     fun insertNote(note: Note) {
         println("note id = $note")
         if (note.id == 0L) {
-            viewModelScope.launch {
+            viewModelScope.launch(Dispatchers.IO) {
                 notesRepo.insertNode(note)
             }
         } else {
