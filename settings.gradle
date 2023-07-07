@@ -8,3 +8,8 @@ dependencyResolutionManagement {
 }
 rootProject.name = "NotesCompose"
 include ':app'
+include ':feature:notes'
+//project(':notes').projectDir = new File(rootDir, 'feature/notes/')
+include ':core:models'
+include ':core:data'
+include ':core:datastore'
