@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -33,7 +34,7 @@ fun HomeContent(
     notes: List<Note>,
     onNoteClicked : OnNoteClicked,
     onNewNoteClicked: OnNewNoteClicked) {
-//){
+
     val context = LocalContext.current
 
     Scaffold(
@@ -75,7 +76,9 @@ fun NoteCard(note: Note, onNoteClicked : OnNoteClicked) {
         elevation = 10.dp,
         contentColor = Color.Blue,
         shape = RoundedCornerShape(16.dp),
-        modifier = paddingModifier.clickable { onNoteClicked(note) },
+        modifier = paddingModifier
+            .clickable { onNoteClicked(note) }
+            .height(100.dp),
     ) {
         Column {
             Row(
@@ -85,7 +88,7 @@ fun NoteCard(note: Note, onNoteClicked : OnNoteClicked) {
                     horizontalAlignment = Alignment.Start
                 ) {
                     Text(
-                        text = "Text with card content color (Blue)",
+                        text = note.title!!,
                         modifier = paddingModifier
                     )
                 }
@@ -102,7 +105,7 @@ fun NoteCard(note: Note, onNoteClicked : OnNoteClicked) {
             }
             Row {
                 Text(
-                    text = "Text with card custom color",
+                    text = note.body,
                     color = Color.Black,
                     modifier = paddingModifier
                 )
