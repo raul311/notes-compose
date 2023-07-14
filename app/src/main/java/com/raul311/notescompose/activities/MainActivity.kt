@@ -50,6 +50,7 @@ fun HomeScreen(notes: List<Note>?) {
 }
 
 fun fullScreenNote(context: Context, note : Note) {
+    println("raul - open fullscreen note -> $note")
     val intent = Intent(context, FullScreenActivity::class.java)
     intent.putExtra("note-id", note.id)
     context.startActivity(intent)

@@ -30,14 +30,21 @@ class FullScreenActivity : ComponentActivity() {
         lifecycleScope.launch {
             if (id != 0L) {
                 notesViewModel.getNote(id).collect {
-                    note = it
-                    setContent {
-                        NotesComposeTheme {
-                            println("raul $note")
-                            FullScreenNote(note!!, notesViewModel)
-                        }
+                    if (it != null) {
+                        openNote(it, notesViewModel)
                     }
                 }
+            } else {
+                openNote(note, notesViewModel)
+            }
+        }
+    }
+
+    private fun openNote(note: Note, notesViewModel: NotesViewModel) {
+        setContent {
+            NotesComposeTheme {
+                println("raul $note")
+                FullScreenNote(note, notesViewModel)
             }
         }
     }
