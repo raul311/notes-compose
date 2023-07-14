@@ -1,14 +1,14 @@
 package com.raul311.notescompose.core.data.notes
 
-import androidx.lifecycle.LiveData
 import com.raul311.notescompose.core.datastore.notes.NoteDao
 import com.raul311.notescompose.core.models.notes.Note
+import kotlinx.coroutines.flow.Flow
 
 class NotesRepository(private val noteDao: NoteDao) {
 
-    fun getAllNotes(): LiveData<List<Note>> = noteDao.getNotes()
+    fun getAllNotes(): Flow<List<Note>> = noteDao.getNotes()
 
-    fun getNote(id: Long): LiveData<Note> = noteDao.getNote(id)
+    fun getNote(id: Long): Flow<Note> = noteDao.getNote(id)
 
     fun insertNode(note: Note) = noteDao.insertNode(note)
 

@@ -1,8 +1,8 @@
 package com.raul311.notescompose.core.datastore.notes
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.raul311.notescompose.core.models.notes.Note
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface NoteDao {
@@ -14,10 +14,10 @@ interface NoteDao {
     fun updateNote(note: Note)
 
     @Query("SELECT * FROM Note")
-    fun getNotes() : LiveData<List<Note>>
+    fun getNotes() : Flow<List<Note>>
 
     @Query("SELECT * FROM Note WHERE id IN (:id)")
-    fun getNote(id: Long): LiveData<Note>
+    fun getNote(id: Long): Flow<Note>
 
     @Delete
     fun deleteNote(note: Note)

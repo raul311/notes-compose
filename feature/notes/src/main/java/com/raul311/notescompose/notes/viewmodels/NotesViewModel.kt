@@ -2,12 +2,12 @@ package com.raul311.notescompose.notes.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.raul311.notescompose.core.data.notes.NotesRepository
 import com.raul311.notescompose.core.datastore.notes.NoteDatabase
 import com.raul311.notescompose.core.models.notes.Note
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class NotesViewModel(application: Application) : AndroidViewModel(application) {
@@ -19,11 +19,11 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
         notesRepo = NotesRepository(noteDB)
     }
 
-    fun getAllNotes(): LiveData<List<Note>> {
+    fun getAllNotes(): Flow<List<Note>> {
         return notesRepo.getAllNotes()
     }
 
-    fun getNote(id: Long): LiveData<Note> {
+    fun getNote(id: Long): Flow<Note> {
         return notesRepo.getNote(id)
     }
 
@@ -40,13 +40,13 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
 
     fun updateNote(note: Note) {
         println("updating note id = $note")
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             notesRepo.updateNote(note)
         }
     }
 
     fun deleteNote(note: Note) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             notesRepo.deleteNote(note)
         }
     }

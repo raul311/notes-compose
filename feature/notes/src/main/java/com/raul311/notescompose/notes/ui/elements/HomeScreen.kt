@@ -31,7 +31,7 @@ import com.raul311.notescompose.notes.ui.theme.Purple700
 
 @Composable
 fun HomeContent(
-    notes: List<Note>,
+    notes: List<Note>?,
     onNoteClicked : OnNoteClicked,
     onNewNoteClicked: OnNewNoteClicked) {
 
@@ -47,7 +47,7 @@ fun HomeContent(
         content = {
             Surface(color = Purple200) {
                 LazyColumn (modifier = Modifier.padding(it)) {
-                    items(notes.size) {
+                    items(notes!!.size) {
                         NoteCard(note = notes[it], onNoteClicked = onNoteClicked)
                     }
                 }
