@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.raul311.notescompose.core.models.notes.Note
 import com.raul311.notescompose.notes.viewmodels.NotesViewModel
+import java.util.Calendar
 
 @Composable
 fun FullScreenNote(
@@ -57,7 +58,12 @@ fun FullScreenNote(
                     val (back) = createRefs()
                     IconButton(
                         onClick = {
-                            val note = Note(title, body, note.version + 1, note.id)
+                            val note = Note(
+                                title,
+                                body,
+                                note.version + 1,
+                                Calendar.getInstance().timeInMillis,
+                                note.id)
                             println("top bar click save note $note")
                             notesViewModel.insertNote(note)
                             activity?.finish()
@@ -136,6 +142,7 @@ fun FullScreenNote(
                                     title!!,
                                     body,
                                     note.version,
+                                    Calendar.getInstance().timeInMillis,
                                     note.id)
                                 println("BottomNavigationItem click save note $note")
                                 notesViewModel.insertNote(note)
@@ -170,6 +177,7 @@ fun FullScreenNote(
                                         title!!,
                                         body,
                                         note.version,
+                                        Calendar.getInstance().timeInMillis,
                                         0)
                                     notesViewModel.insertNote(note)
                                     isSettingsMenuExpanded = !isSettingsMenuExpanded

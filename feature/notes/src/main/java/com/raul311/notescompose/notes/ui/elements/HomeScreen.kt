@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.raul311.notescompose.core.data.utils.getNoteDateFromTimeStamp
 import com.raul311.notescompose.core.models.notes.Note
 import com.raul311.notescompose.notes.ui.theme.Purple200
 import com.raul311.notescompose.notes.ui.theme.Purple700
@@ -97,7 +98,7 @@ fun NoteCard(note: Note, onNoteClicked : OnNoteClicked) {
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
-                        text = "Date",
+                        text = getNoteDateFromTimeStamp(note.timeStamp),
                         modifier = paddingModifier,
                         textAlign = TextAlign.Right
                     )
