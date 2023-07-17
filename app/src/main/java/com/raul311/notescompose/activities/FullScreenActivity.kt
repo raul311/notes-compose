@@ -10,8 +10,10 @@ import com.raul311.notescompose.core.models.notes.Note
 import com.raul311.notescompose.notes.ui.elements.FullScreenNote
 import com.raul311.notescompose.notes.ui.theme.NotesComposeTheme
 import com.raul311.notescompose.notes.viewmodels.NotesViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class FullScreenActivity : ComponentActivity() {
 
     private val notesViewModel: NotesViewModel by viewModels()

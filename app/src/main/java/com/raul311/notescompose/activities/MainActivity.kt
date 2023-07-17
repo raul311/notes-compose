@@ -12,8 +12,10 @@ import androidx.lifecycle.lifecycleScope
 import com.raul311.notescompose.core.models.notes.Note
 import com.raul311.notescompose.notes.ui.elements.HomeContent
 import com.raul311.notescompose.notes.viewmodels.NotesViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

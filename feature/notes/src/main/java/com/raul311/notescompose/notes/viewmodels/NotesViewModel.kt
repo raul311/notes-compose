@@ -4,20 +4,18 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.raul311.notescompose.core.data.notes.NotesRepository
-import com.raul311.notescompose.core.datastore.notes.NoteDatabase
 import com.raul311.notescompose.core.models.notes.Note
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class NotesViewModel(application: Application) : AndroidViewModel(application) {
-
+@HiltViewModel
+class NotesViewModel @Inject constructor(
+    application: Application,
     private val notesRepo: NotesRepository
-
-    init {
-        val noteDB = NoteDatabase.getDatabase(application).noteDao()
-        notesRepo = NotesRepository(noteDB)
-    }
+) : AndroidViewModel(application) {
 
     fun getAllNotes(): Flow<List<Note>> {
         return notesRepo.getAllNotes()
